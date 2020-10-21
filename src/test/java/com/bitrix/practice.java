@@ -33,7 +33,7 @@ public class practice {
 
     @AfterMethod
     public void setDown(){
-       driver.close();
+      //driver.close();
     }
 
     @Test
@@ -73,15 +73,17 @@ public class practice {
     @Test
 
     public void addMention(){
+        // Message tab from active stream
         driver.findElement(By.xpath("//span[@id='feed-add-post-form-tab-message']/span")).click();
-        util.sleep();
-        driver.findElement(By.id("bx-b-mention-blogPostForm")).click();
-        util.sleep();
+        util.sleep(); // replace with "wait - sleep" method from your library or use Thread.sleep(2000);
+        driver.findElement(By.id("bx-b-mention-blogPostForm")).click(); // add Mention icon
+        util.sleep();// replace with "wait - sleep" method from your library or use Thread.sleep(2000);
         List<WebElement> providedContacts = driver.findElements(By.xpath("//span[@class='bx-finder-groupbox false']//a"));
 
-        providedContacts.get(0).click();
-        util.sleep();
+        providedContacts.get(0).click(); // this selects first contact from provided list
+        util.sleep();// replace with "wait - sleep" method from your library or use Thread.sleep(2000);
 
+        //this is self explanatory :)
         WebElement addedMention = driver.findElement(By.xpath("//span[@id='feed-add-post-destination-item']/span[2]//span[1]"));
 
         Assert.assertTrue(addedMention.isDisplayed());
@@ -91,13 +93,17 @@ public class practice {
 
     @Test
     public void creatingCheckListItem(){
+        //clicks on task tab
         driver.findElement(By.xpath("//span[@id='feed-add-post-form-tab-tasks']//span")).click();
-
+        //clicks on checklist
         driver.findElement(By.xpath("//span[@class='tasks-task-mpf-link']")).click();
 
         WebElement checkListTextBox = driver.findElement(By.xpath("//input[@class='js-id-checklist-is-form-title task-checklist-field-add']"));
         checkListTextBox.sendKeys("test111");
+
+        //clicks on add button
         driver.findElement(By.xpath("//span[@class='js-id-checklist-is-open-form task-dashed-link-inner']")).click();
+        //new checklist item
         WebElement checkListItem = driver.findElement(By.xpath("//label[@class='block-read task-checklist-field-label']"));
         Assert.assertTrue(checkListItem.isDisplayed(),"Check list item is missing");
     }
@@ -111,10 +117,13 @@ public class practice {
         WebElement checkListTextBox = driver.findElement(By.xpath("//input[@class='js-id-checklist-is-form-title task-checklist-field-add']"));
         checkListTextBox.sendKeys("test111");
         driver.findElement(By.xpath("//span[@class='js-id-checklist-is-open-form task-dashed-link-inner']")).click();
+
+        //clicks on separator button
         driver.findElement(By.xpath("//span[@class='js-id-checklist-is-add-separator task-dashed-link-inner']")).click();
         checkListTextBox.sendKeys("test111");
         driver.findElement(By.xpath("//span[@class='js-id-checklist-is-open-form task-dashed-link-inner']")).click();
 
+        //list of elements contains 2 items and separator
         List<WebElement> checkListElements = driver.findElements(By.xpath("//div[@id='bx-component-scope-lifefeed_task_form-checklist']//div[2]//div[@style]"));
 
         Assert.assertEquals(checkListElements.size(),3);
@@ -141,7 +150,7 @@ public class practice {
         actions.moveToElement(checkListItem).build().perform();
 
         xButton.click();
-
+        util.sleep();// replace with "wait - sleep" method from your library or use Thread.sleep(2000);
         List<WebElement> checkListElements = driver.findElements(By.xpath("//div[@id='bx-component-scope-lifefeed_task_form-checklist']//div[2]//div[@style]"));
 
         Assert.assertEquals(checkListElements.size(),0);
@@ -254,7 +263,7 @@ public class practice {
     @Test
     public void specifyTimeZone(){
         driver.findElement(By.id("feed-add-post-form-tab-calendar")).click();
-        util.sleep(5);
+        util.sleep(5);// replace with "wait - sleep" method from your library or use Thread.sleep(5000);
         driver.findElement(By.xpath("//span[@class='feed-ev-tz-open']")).click();
 
         Select select = new Select(driver.findElement(By.id("feed-cal-tz-fromcal_3Jcl")));
